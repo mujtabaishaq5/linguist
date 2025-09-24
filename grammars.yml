@@ -1380,3 +1380,13 @@ vendor/grammars/zenstack:
 - source.zmodel
 vendor/grammars/zephir-sublime:
 - source.php.zephir
+ELPL:
+  type: programming
+  color: "#7B61FF"        # pick a hex color for GitHub language bar
+  extensions:
+    - ".elpl"
+  tm_scope: source.elpl
+  ace_mode: text
+  language_id: 999999     # pick a new unused ID (must be unique)
+  grammar:
+    path: grammars/elpl/elpl.tmLanguage.json
