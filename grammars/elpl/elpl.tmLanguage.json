@@ -1,19 +1,39 @@
 {
   "name": "ELPL",
   "scopeName": "source.elpl",
+
   "patterns": [
     { "include": "#comments" },
-    { "include": "#keywords" },
-     { "include": "#useKeyword" },
-    { "include": "#builtins" },
-    { "include": "#userFunctions" },
     { "include": "#strings" },
+    { "include": "#javaDirective" },
+    { "include": "#annotations" },
+    { "include": "#listMethods" },
+
+    { "include": "#mapMethods" },
+
+    { "include": "#arrayMethods" },
+
+    { "include": "#setMethods" },
+
+    { "include": "#queueMethods" },
+    { "include": "#methodCalls" },
+    { "include": "#controlKeywords" },
+    { "include": "#userFunctions" },
+    { "include": "#builtins" },
+    { "include": "#operators" },
+    { "include": "#booleansAndConstants" },
+    { "include": "#printKeywords" },
+    
+    { "include": "#accessModifiers" },
+    { "include": "#types" },
+    { "include": "#useKeyword" },
     { "include": "#numbers" },
-    { "include": "#variables" },
-    { "include": "#javaDirective" }
-   
+    { "include": "#punctuation" },
+    { "include": "#variables" }
   ],
+
   "repository": {
+
     "comments": {
       "patterns": [
         {
@@ -22,35 +42,170 @@
         },
         {
           "name": "comment.block.elpl",
-          "begin": ">>>",
-          "end": "<<<"
+          "begin": "<!",
+          "end": "!>"
         }
       ]
     },
-    "keywords": {
+
+    "printKeywords": {
+      "patterns": [
+        {
+          "name": "keyword.other.print.elpl",
+          "match": "\\b(print|printnl|nl)\\b"
+        }
+      ]
+    },
+
+    "booleansAndConstants": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.elpl",
+          "match": "\\b(true|false|pels|mels|sels|dels|mls)\\b"
+        }
+      ]
+    },
+
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.comparison.elpl",
+          "match": "\\b(is\\s+equal\\s+to|is\\s+not\\s+equal\\s+to|is\\s+less\\s+than\\s+or\\s+equal\\s+to|is\\s+greater\\s+than\\s+or\\s+equal\\s+to|is\\s+less\\s+than|is\\s+greater\\s+than|is|equal|greater|less|than|to)\\b|==|!=|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.logical.elpl",
+          "match": "\\b(and|or|not)\\b"
+        },
+        {
+          "name": "keyword.operator.arithmetic.elpl",
+          "match": "\\b(add|subtract|divide|multiply|mod)\\b|\\+|\\-|\\*|\\/|%"
+        },
+        {
+          "name": "keyword.operator.expression.instanceof.elpl",
+          "match": "\\b(instanceof|new)\\b"
+        }
+      ]
+    },
+
+    "controlKeywords": {
       "patterns": [
         {
           "name": "keyword.control.elpl",
-          "match": "\\b(let|be|if|then|not|otherwise|print|is|Map|greater|function|foreach|call|while|than|repeat|times|and|or|float|Array|to|add|subtract|divide|multiply|not|equal|stop|return|for|less|pels|mels|sels|dels|mls)\\b"
+          "match": "\\b(let|be|if|then|otherwise|continue|join|stop|foreach|call|while|repeat|times|return|for|try|catch|throw|switch|case|default|extends|implements)\\b"
         }
       ]
     },
+
+    "accessModifiers": {
+      "patterns": [
+        {
+          "name": "storage.modifier.access.elpl",
+          "match": "\\b(public|private|protected|static|final|interface|abstract)\\b"
+        }
+      ]
+    },
+
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.primitive.elpl",
+          "match": "\\b(Char|Long|Float|Int|Boolean|String|Double|Void)\\b"
+        },
+        {
+          "name": "entity.name.type.class.elpl",
+          "match": "\\b(function|class|enum|Map|List|Array|Thread|scan|Set|Queue)\\b"
+        }
+      ]
+    },
+
     "useKeyword": {
       "patterns": [
         {
-          "name": "keyword.other.use.elpl",
-          "match": "\\buse\\b"
+          "name": "keyword.other.import.elpl",
+          "match": "\\b(use|sleep|package)\\b"
         }
       ]
     },
+
     "builtins": {
       "patterns": [
         {
           "name": "support.function.builtin.elpl",
-          "match": "\\b(length|sum|max|min|sqrt|pow|floor|ceil|reverse|size|put|deepReverse)\\b"
+          "match": "\\b(sqrt|pow|abs|floor|ceil|delete)\\b"
         }
       ]
     },
+    "setMethods": {
+      "patterns": [
+        {
+          "match": "(\\.)\\s*(include|remove|contains|size|isEmpty|clear)\\b",
+          "captures": {
+            "1": { "name": "punctuation.accessor.elpl" },
+            "2": { "name": "support.function.set.elpl" }
+          }
+        }
+      ]
+    },
+     "arrayMethods": {
+      "patterns": [
+        {
+          "match": "(\\.)\\s*(length|max|min|sum|sqrt|abs|pow|ceil|floor|reverse|deepReverse)\\b",
+          "captures": {
+            "1": { "name": "punctuation.accessor.elpl" },
+            "2": { "name": "support.function.array.elpl" }
+          }
+        }
+      ]
+    },
+
+    "queueMethods": {
+      "patterns": [
+        {
+          "match": "(\\.)\\s*(affix|offer|poll|peek|remove|contains|size|isEmpty|clear)\\b",
+          "captures": {
+            "1": { "name": "punctuation.accessor.elpl" },
+            "2": { "name": "support.function.queue.elpl" }
+          }
+        }
+      ]
+    },
+
+    "mapMethods": {
+      "patterns": [
+        {
+          "match": "(\\.)\\s*(delete|put|has|clear|size)\\b",
+          "captures": {
+            "1": { "name": "punctuation.accessor.elpl" },
+            "2": { "name": "support.function.map.elpl" }
+          }
+        }
+      ]
+    },
+
+    "listMethods": {
+      "patterns": [
+        {
+          "match": "(\\.)\\s*(append|remove|insert|)\\b",
+          "captures": {
+            "1": { "name": "punctuation.accessor.elpl" },
+            "2": { "name": "entity.name.function.member.elpl" }
+          }
+        }
+      ]
+    },
+
+    "methodCalls": {
+      "patterns": [
+        {
+          "match": "(\\.)\\s*([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?=\\()",
+          "captures": {
+            "1": { "name": "punctuation.accessor.elpl" },
+            "2": { "name": "entity.name.function.member.elpl" }
+          }
+        }
+      ]
+    },
+
     "userFunctions": {
       "patterns": [
         {
@@ -59,14 +214,29 @@
         }
       ]
     },
-    "javaDirective": {
+
+    "javaDirective": { 
+      "patterns": [ 
+        { 
+          "name": "keyword.other.java.elpl", 
+          "match": "@java\\b" 
+        },  
+        {
+          "name": "entity.other.attribute-name.override.elpl",
+          "match": "@override\\b"
+        } 
+      ] 
+    },
+
+    "annotations": {
       "patterns": [
         {
-          "name": "keyword.other.java.elpl",
-          "match": "@java"
+          "name": "entity.name.type.annotation.elpl",
+          "match": "@[a-zA-Z_][a-zA-Z0-9_]*\\b"
         }
       ]
     },
+
     "strings": {
       "name": "string.quoted.double.elpl",
       "begin": "\"",
@@ -78,13 +248,36 @@
         }
       ]
     },
+
     "numbers": {
-      "name": "constant.numeric.elpl",
+      "name": "constant.numeric.decimal.elpl",
       "match": "\\b\\d+(\\.\\d+)?\\b"
     },
+
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.brackets.elpl",
+          "match": "[\\[\\]\\(\\)\\{\\}]"
+        },
+        {
+          "name": "punctuation.separator.delimiter.elpl",
+          "match": "[,;.]"
+        }
+      ]
+    },
+
     "variables": {
-      "name": "variable.other.elpl",
-      "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+      "patterns": [
+        {
+          "name": "variable.language.self.elpl",
+          "match": "\\b(this|super)\\b"
+        },
+        {
+          "name": "variable.other.readwrite.elpl",
+          "match": "(?<!@)\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+        }
+      ]
     }
   }
 }
