@@ -1,0 +1,51 @@
+package com.syedm.testproject
+
+use androidx.appcompat.app.AppCompatActivity
+use android.os.Bundle
+use android.content.Intent
+use android.os.Handler
+use android.os.Looper
+use java.lang.Runnable
+use android.widget.LinearLayout
+use android.widget.TextView
+use android.graphics.Color
+
+class SplashScreenActivity extends AppCompatActivity implements Runnable {
+
+    public function onCreate(Bundle savedInstanceState): Void {
+        super.onCreate(savedInstanceState)
+
+        // 1. Setup a dynamic, centered UI for the splash screen
+        LinearLayout layout be new LinearLayout(this)
+        layout.setOrientation(1) // VERTICAL
+        layout.setGravity(17)    // CENTER
+
+        // Give it a sleek dark blue background using your new strict types!
+        layout.setBackgroundColor(Color.parseColor("#1E3A8A"))
+
+        TextView logo be new TextView(this)
+        logo.setText("ELPL Power")
+        logo.setTextSize(36.0)
+        logo.setTextColor(Color.WHITE)
+        
+        layout.addView(logo)
+        this.setContentView(layout)
+
+        // 2. Schedule the transition using Android's Handler
+        let looper: Looper be Looper.getMainLooper()
+        let handler: Handler be new Handler(looper)
+        
+        // Post this Activity (which is a Runnable) to trigger after 2000ms (2 seconds)
+        handler.postDelayed(this, 2000)
+    }
+
+    // 3. This runs automatically when the 2-second timer is up
+    public function run(): Void {
+        // Launch the MainActivity
+        Intent intent be new Intent(this, MainActivity.class)
+        this.startActivity(intent)
+        
+        // Call finish() so the user can't press the 'Back' button to return to the splash screen
+        this.finish()
+    }
+}

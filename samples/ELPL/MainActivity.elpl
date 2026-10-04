@@ -1,0 +1,42 @@
+use androidx.appcompat.app.AppCompatActivity
+use android.view.View
+use android.widget.LinearLayout
+use android.widget.Button
+use android.widget.Toast
+
+class MainActivity extends AppCompatActivity implements View$OnClickListener {
+
+    function onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState)
+
+        let layout be new LinearLayout(this)
+        layout.setOrientation(1)
+        layout.setGravity(17)
+
+        let button be new Button(this)
+        button.setText("Say Hello")
+        button.setId(1)
+         button.setOnClickListener(this)
+
+        let btn be new Button(this)
+        btn.setText("ELPL")
+        btn.setId(2)
+         btn.setOnClickListener(this)
+
+        layout.addView(btn)
+        layout.addView(button)
+        this.setContentView(layout)
+    }
+
+    public function onClick(View v){
+        let id be v.getId()
+            
+        if (id is equal to 2) then {
+            let toast be Toast.makeText(this, "ELPL button tapped!", 1000)
+            toast.show()
+        } otherwise {
+            let tst be Toast.makeText(this, "Hello button tapped!", 1000)
+            tst.show()
+        } 
+    }
+}
